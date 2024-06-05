@@ -94,7 +94,7 @@ LAT_N        NUMBER
 LONG_W       NUMBER
 
 Query
-select count(city) - count(distinct city)from station;
+select count(city) - count(distinct city) from station;
 
 Task 8 :- Weather Observation Station 5
 
