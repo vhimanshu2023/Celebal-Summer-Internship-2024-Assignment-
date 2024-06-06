@@ -10,7 +10,7 @@ DISTRICT     VARCHAR(20)
 POPULATION   NUMBER
 
 Query 
-select * from city ;
+select * from city;
 
 Task 2 :- Select By ID
 
