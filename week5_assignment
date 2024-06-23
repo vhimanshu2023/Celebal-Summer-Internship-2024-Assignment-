@@ -1,0 +1,72 @@
+Task 1 :- Copy data from Database to CSV,Parquet and Avro File Format
+
+import pandas as pd
+import mysql.connector
+from sqlalchemy import create_engine
+import pyarrow as pa
+import pyarrow.parquet as pq
+import fastavro
+
+db_config = {
+    'user': 'root',
+    'password': 'himanshu##11',
+    'host': '127.0.0.1',
+    'database': 'w3schools',
+}
+
+query = "SELECT * FROM w3schools.customers"
+
+connection = mysql.connector.connect(**db_config)
+df = pd.read_sql(query, connection)
+connection.close()
+
+df.to_csv('D:\EXPORT LOCATION\customers.csv', index=False)
+
+table = pa.Table.from_pandas(df)
+pq.write_table(table, 'D:\EXPORT LOCATION\customers.parquet')
+
+schema = {
+    "type": "record",
+    "name": "customers",
+    "fields": [{"name": col, "type": "string"} for col in df.columns]
+}
+
+records = df.to_dict('records')
+with open('D:\EXPORT LOCATION\customers.avro', 'wb') as out:
+    fastavro.writer(out, schema, records)
+
+print("Data has been saved to CSV, Parquet, and Avro formats.")
+
+
+Task 3 :- Copy all the tables from one database to another
+select * into copy_tables.dbo.employee1 from himanshudb.dbo.employee1;
+select * into copy_tables.dbo.department from himanshudb.dbo.department;
+select * into copy_tables.dbo.products from himanshudb.dbo.products;
+select * into copy_tables.dbo.quantitys from himanshudb.dbo.quantitys;
+select * into copy_tables.dbo.student from himanshudb.dbo.student;
+select * into copy_tables.dbo.targets from himanshudb.dbo.targets;
+select * into copy_tables.dbo.tb1productsales from himanshudb.dbo.tb1productsales;
+
+Task 4 :- Copy selective tables with selective columns from one database to another
+
+create database selective_table;
+
+create table selective_table.dbo.employees
+(id int,name varchar(40),salary int);
+
+create table selective_table.dbo.department
+(deptid int,deptname varchar(30));
+
+create table selective_table.dbo.student
+(id int,name varchar(40),age int);
+
+insert into selective_table.dbo.employees
+select id,name,salary from himanshudb.dbo.employee1;
+
+insert into selective_table.dbo.department
+select deptid,deptname from himanshudb.dbo.department;
+
+insert into selective_table.dbo.student
+select id,name,age from himanshudb.dbo.student;
+
+
