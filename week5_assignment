@@ -39,6 +39,7 @@ print("Data has been saved to CSV, Parquet, and Avro formats.")
 
 
 Task 3 :- Copy all the tables from one database to another
+
 select * into copy_tables.dbo.employee1 from himanshudb.dbo.employee1;
 select * into copy_tables.dbo.department from himanshudb.dbo.department;
 select * into copy_tables.dbo.products from himanshudb.dbo.products;
