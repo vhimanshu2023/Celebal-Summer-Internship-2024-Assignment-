@@ -51,22 +51,10 @@ Task 4 :- Copy selective tables with selective columns from one database to anot
 
 create database selective_table;
 
-create table selective_table.dbo.employees
-(id int,name varchar(40),salary int);
+select id,name,salary into selective_table.dbo.employees from himanshudb.dbo.employee1;
 
-create table selective_table.dbo.department
-(deptid int,deptname varchar(30));
+select deptid,deptname into selective_table.dbo.department from himanshudb.dbo.department;
 
-create table selective_table.dbo.student
-(id int,name varchar(40),age int);
+select id,name into selective_table.dbo.student from himanshudb.dbo.student;
 
-insert into selective_table.dbo.employees
-select id,name,salary from himanshudb.dbo.employee1;
-
-insert into selective_table.dbo.department
-select deptid,deptname from himanshudb.dbo.department;
-
-insert into selective_table.dbo.student
-select id,name,age from himanshudb.dbo.student;
-
-
+select productsalesid,quantitysold into selective_table.dbo.productsales from himanshudb.dbo.tb1productsales;
